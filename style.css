@@ -1,0 +1,51 @@
+body {
+    background-color: rgb(55, 61, 78);
+    text-align: center;
+    margin: 0px;
+    font-family: 'LVDC Game Over 2', sans-serif;
+}
+
+h1 {
+    margin: 4rem;
+    font-family: 'LVDC Game Over 2', sans-serif;
+    color:rgb(241, 232, 214);
+
+}
+
+/* Button Style */
+
+.row {
+    display: block;
+    margin: 0;
+}
+
+.button {
+    height: 10rem;
+    width: 10rem;
+    border: solid;
+    border-width: 8px;
+    border-color: black;
+    margin: 10px;
+    border-radius: 20%;
+}
+
+.yellow-button {
+    background-color: yellow;
+}
+
+.red-button {
+    background-color: red;
+}
+
+.blue-button {
+    background-color: blue;
+}
+
+.green-button {
+    background-color: green;
+}
+
+.next-button{
+    border-style: double;
+    border-color: whitesmoke;
+}
