@@ -8,45 +8,58 @@ var wrongAudio = new Audio('sounds/wrong.mp3');
 var game = {
     buttonSequence: [],
     levelStatus: 0,
-    pointOfSequence: 0,     // in which index of the button Sequence is the player 
-    makeSound(){},
-    namingNewButton(){}
+    pointOfSequence: 0, // in which index of the button Sequence is the player 
+    makeSound() {},
+    namingNewButton() {}
 };
 
 
 
 
 /* Add Event Listener*/
-$('.button').click(handleClick);
+$('.button').click(handleButtonClick);
 $(document).keydown(handleKeydown);
+$(document).click(handlePadgeClick);
+$(".pop-up").click(handleExplanationClick)
 
 /* Handel Listener */
 
 function handleKeydown(event) {
-    console.log("levelStatus: " + game.levelStatus);
     if (game.levelStatus == 0) { // not in the middle of the game - new game can start
+        // setTimeout(createSequence, 200);
         createSequence();
         namingNewButton();
     }
 }
 
-function handleClick(event) {
+function handleButtonClick(event) {
     console.log("");
     //--check if input is right
     if (game.levelStatus !== 0) { //a game is going on
         console.log("you clicked " + event.currentTarget.classList[2])
         if (checkInput(event.currentTarget.classList[2]) == true) {
             makeSound(event.currentTarget.classList[2]);
-            console.log("pointOfSequence: "+ game.pointOfSequence);
+            console.log("pointOfSequence: " + game.pointOfSequence);
             console.log("levelStatus: " + game.levelStatus);
             if ((game.pointOfSequence) == game.levelStatus) {
-                setTimeout(namingNewButton, 1500);// TODO --wait a second
+                // setTimeout(namingNewButton, 1500);
+                namingNewButton();
             }
         } else {
             makeSound("wrong");
             $("h1").text("Game Over, Press Any Key to Restart ");
-            game.levelStatus = 0;
+            setTimeout(function () {
+                game.levelStatus = 0;
+            }, 1500);
+        
         }
+    }
+}
+
+function handlePadgeClick() {
+    if (game.levelStatus == 0) { // not in the middle of the game - new game can start
+        createSequence();
+        namingNewButton();
     }
 }
 
@@ -125,12 +138,15 @@ function namingNewButton() {
     var a = game.buttonSequence[game.levelStatus - 1];
 
     changeLevel();
-    makeSound(game.buttonSequence[game.levelStatus - 1]);
-    // -- visuel Diffrence of buttonSequence[i]
-    $("." + game.buttonSequence[game.levelStatus - 1]).addClass("next-button");
-    setTimeout(function() {
-        $("." + game.buttonSequence[game.levelStatus - 1]).removeClass("next-button")
-    }, 100);
-    game.pointOfSequence = 0;
-    console.log("New Button : " + game.buttonSequence[game.levelStatus - 1]);
+    setTimeout(function () {
+        makeSound(game.buttonSequence[game.levelStatus - 1]);
+        // -- visuel Diffrence of buttonSequence[i]
+        $("." + game.buttonSequence[game.levelStatus - 1]).addClass("next-button");
+        setTimeout(function () {
+            $("." + game.buttonSequence[game.levelStatus - 1]).removeClass("next-button")
+        }, 100);
+        game.pointOfSequence = 0;
+        console.log("New Button : " + game.buttonSequence[game.levelStatus - 1]);
+    }, 1000);
+
 }
